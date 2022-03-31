@@ -2,11 +2,12 @@ var currentDay = moment().format('MMMM Do YYYY');
 var onScreenDay = $('#currentDay');
 var gridContainer = $('#timeGrid');
 var lastHourMark = moment().startOf('hour').format('HH');
+console.log(lastHourMark);
 
 //Place the current date on the screen.
 onScreenDay.text(currentDay);
 
-for (let i = 9; i < 17; i++) {
+for (let i = 9; i < 18; i++) {
     //create the row.
     var rowDiv = $('<div>');
     rowDiv.attr("class", "row");
@@ -26,18 +27,20 @@ for (let i = 9; i < 17; i++) {
     //create todo column
     var todoColumn = $('<textarea>');
     todoColumn.addClass("form-group description col-10");
+    // Color the textarea based on past, present, or future
+    if (i < lastHourMark) {
+        console.log(lastHourMark);
+        todoColumn.addClass('past');
+    } else if (i == lastHourMark) {
+        console.log("pres");
+        todoColumn.addClass('present');
+    } else {
+        todoColumn.addClass('future');
+    }
     todoColumn.attr('type', 'text');
     todoColumn.attr('data-time', i);
     todoColumn.val(retrieveTask(i));
-
-    // Color the textarea based on past, present, or future
-    if (i < lastHourMark) {
-        todoColumn.addClass('past');
-    } else if (i > lastHourMark + 1) {
-        todoColumn.addClass('future');
-    } else {
-        todoColumn.addClass('present');
-    }
+    
 
     rowDiv.append(todoColumn);
 
@@ -59,13 +62,11 @@ for (let i = 9; i < 17; i++) {
 //a function to save text content of the text area to localStorage
 function saveTask(hour) {
     var task = $(`[data-time="${hour}"]`).val();
-    console.log(task);
     localStorage.setItem(`${hour}`, task )
 }
 
 function retrieveTask(hour) {
     var task = localStorage[`${hour}`];
-    console.log(task);
     return task;
 }
 
@@ -73,7 +74,6 @@ gridContainer.on('click', (e) => {
     var targetClass = $(e.target).attr("class");
     if (targetClass === "col-1 saveBtn") {
         var taskToSave = $(e.target).prev().attr("data-time");
-        console.log(taskToSave);
         saveTask(taskToSave);
     }
     
