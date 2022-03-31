@@ -5,13 +5,15 @@ body {
 }
 
 textarea {
-  background: transparent;
   border: none;
   resize: none;
   color: #000000;
   border-left: 1px solid black;
   padding: 10px;
+  background: transparent;
+  color: transparent;
 }
+
 
 .jumbotron {
   text-align: center;
@@ -26,7 +28,7 @@ textarea {
 }
 
 .time-block {
-  text-align: center;
+  text-align: right;
   border-radius: 15px;
 }
 
@@ -68,4 +70,23 @@ textarea {
 .saveBtn i:hover {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
+}
+
+.saveBtn:hover {
+  background-color: green;
+}
+
+input[type="text"], textarea {
+
+  background-color : #77dd77; 
+
+}
+
+.fa-lock {
+  margin-left: 30%;
+  margin-top: 50%;
+}
+
+input[type="text"], textarea {
+  background-color: red;
 }
