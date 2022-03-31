@@ -1,8 +1,10 @@
 var currentDay = moment().format('MMMM Do YYYY');
 var onScreenDay = $('#currentDay');
 var gridContainer = $('#timeGrid');
-var lastHourMark = moment().startOf('hour').format('HH');
-console.log(lastHourMark);
+
+//Get the current hour block and parse it into an integer.
+var lastHourMark = parseInt(moment().startOf('hour').format('HH'));
+
 
 //Place the current date on the screen.
 onScreenDay.text(currentDay);
@@ -29,9 +31,8 @@ for (let i = 9; i < 18; i++) {
     todoColumn.addClass("form-group description col-10");
     // Color the textarea based on past, present, or future
     if (i < lastHourMark) {
-        console.log(lastHourMark);
         todoColumn.addClass('past');
-    } else if (i == lastHourMark) {
+    } else if (i === lastHourMark) {
         console.log("pres");
         todoColumn.addClass('present');
     } else {
